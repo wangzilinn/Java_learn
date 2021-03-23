@@ -1,3 +1,5 @@
+package reflect;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,12 +18,12 @@ public class ReflectLearn {
         // }
 
         // // 方法反射
-        // Method eat = Person.class.getMethod("eat", String.class);
+        // Method eat = reflect.Person.class.getMethod("eat", String.class);
         // // 利用 invoke 方法调用方法
-        // eat.invoke(new Person(), "food");
-        // eat.invoke(new Person(), "food");
-        // Method shit = Person.class.getMethod("shit", String.class);
-        // shit.invoke(new Person(), "shit");
+        // eat.invoke(new reflect.Person(), "food");
+        // eat.invoke(new reflect.Person(), "food");
+        // Method shit = reflect.Person.class.getMethod("shit", String.class);
+        // shit.invoke(new reflect.Person(), "shit");
 
         //创建字符串"Hello World"， 并赋给引用s
         String s = "Hello World";
