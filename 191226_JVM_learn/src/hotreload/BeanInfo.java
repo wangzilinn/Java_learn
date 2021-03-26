@@ -6,26 +6,12 @@ import hotreload.bean.Bean;
  * @Author: wangzilinn@gmail.com
  * @Date: 3/23/2021 10:34 AM
  */
-public class LoadInfo {
-    private ReloadClassLoader reloadClassLoader;
+public class BeanInfo {
     private long loadTime;
     /**
      * 要加载的类
      */
     private Bean bean;
-
-    public LoadInfo(ReloadClassLoader reloadClassLoader, long loadTime) {
-        this.reloadClassLoader = reloadClassLoader;
-        this.loadTime = loadTime;
-    }
-
-    public ReloadClassLoader getClassLoader() {
-        return reloadClassLoader;
-    }
-
-    public void setMyClassLoader(ReloadClassLoader reloadClassLoader) {
-        this.reloadClassLoader = reloadClassLoader;
-    }
 
     public long getLoadTime() {
         return loadTime;

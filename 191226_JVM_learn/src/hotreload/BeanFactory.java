@@ -12,7 +12,7 @@ import java.util.Map;
  * @Date: 3/23/2021 10:39 AM
  */
 public class BeanFactory {
-    public static final Map<String, LoadInfo> loadTimeMap = new HashMap<>();
+    public static final Map<String, BeanInfo> loadTimeMap = new HashMap<>();
 
     public static final String BASE_PATH = "D:\\Case\\191226_Java_learn\\191226_JVM_learn\\out\\production" +
             "\\191226_JVM_learn\\";
@@ -41,9 +41,10 @@ public class BeanFactory {
             return;
         }
         Bean bean = newInstance(loadClass);
-        LoadInfo loadInfo = new LoadInfo(reloadClassLoader, lastModified);
-        loadInfo.setBean(bean);
-        loadTimeMap.put(className, loadInfo);
+        BeanInfo beanInfo = new BeanInfo();
+        beanInfo.setBean(bean);
+        beanInfo.setLoadTime(lastModified);
+        loadTimeMap.put(className, beanInfo);
     }
 
     private static Bean newInstance(Class<?> loadClass) {
