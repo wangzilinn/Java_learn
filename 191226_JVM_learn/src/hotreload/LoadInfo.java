@@ -19,7 +19,7 @@ public class LoadInfo {
         this.loadTime = loadTime;
     }
 
-    public ReloadClassLoader getMyClassLoader() {
+    public ReloadClassLoader getClassLoader() {
         return reloadClassLoader;
     }
 

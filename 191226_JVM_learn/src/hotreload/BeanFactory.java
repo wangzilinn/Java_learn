@@ -36,18 +36,17 @@ public class BeanFactory {
 
     public static void load(String className, long lastModified) {
         ReloadClassLoader reloadClassLoader = new ReloadClassLoader(BASE_PATH);
-        Class loadClass = null;
-        loadClass = reloadClassLoader.findClass(className);
+        Class<?> loadClass = reloadClassLoader.findClass(className);
         if (loadClass == null) {
             return;
         }
-        Bean manager = newInstance(loadClass);
+        Bean bean = newInstance(loadClass);
         LoadInfo loadInfo = new LoadInfo(reloadClassLoader, lastModified);
-        loadInfo.setBean(manager);
+        loadInfo.setBean(bean);
         loadTimeMap.put(className, loadInfo);
     }
 
-    private static Bean newInstance(Class loadClass) {
+    private static Bean newInstance(Class<?> loadClass) {
         try {
             return (Bean)loadClass.getConstructor().newInstance(new Object[]{});
         } catch (InstantiationException e) {

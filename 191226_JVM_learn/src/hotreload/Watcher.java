@@ -13,6 +13,7 @@ public class Watcher implements Runnable {
         while (true) {
             Bean manager = BeanFactory.getBean("hotreload.bean.myBean");
             manager.logic();
+            System.gc();
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

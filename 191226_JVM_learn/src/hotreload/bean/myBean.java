@@ -10,6 +10,6 @@ public class myBean implements Bean {
 
     @Override
     public void logic() {
-        System.out.println(LocalDateTime.now() + "原始类11");
+        System.out.println(LocalDateTime.now() + "原始类");
     }
 }
