@@ -1,5 +1,7 @@
 package hotreload;
 
+import hotreload.bean.Bean;
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -9,45 +11,45 @@ import java.util.Map;
  * @Author: wangzilinn@gmail.com
  * @Date: 3/23/2021 10:39 AM
  */
-public class ManagerFactory {
+public class BeanFactory {
     public static final Map<String, LoadInfo> loadTimeMap = new HashMap<>();
 
-    public static final String CLASS_PATH = "D:\\Case\\191226_Java_learn\\191226_JVM_learn\\out\\production\\191226_JVM_learn\\" +
-            "hotreload\\";
-    public static final String MANAGER_NAME = "ManagerImpl";
+    public static final String BASE_PATH = "D:\\Case\\191226_Java_learn\\191226_JVM_learn\\out\\production" +
+            "\\191226_JVM_learn\\";
 
-    public static BaseManager getManager(String className) {
-        File loadFile = new File(CLASS_PATH + className + ".class");
+    public static Bean getBean(String className) {
+        String classPath = BASE_PATH + className.replace(".", "\\");
+        File loadFile = new File(classPath + ".class");
         long lastModified = loadFile.lastModified();
         System.out.println("当前类 lastModified = " + lastModified);
         if (loadTimeMap.get(className) == null) {
             // 如果该类没有被加载过, 直接加载
+            System.out.println("第一次加载");
             load(className, lastModified);
         } else if (loadTimeMap.get(className).getLoadTime() != lastModified) {
             // 如果时间戳变化,则重新加载
+            System.out.println("重新加载");
             load(className, lastModified);
         }
-        return loadTimeMap.get(className).getManager();
+        return loadTimeMap.get(className).getBean();
     }
 
     public static void load(String className, long lastModified) {
-        MyClassLoader myClassLoader = new MyClassLoader(CLASS_PATH);
+        ReloadClassLoader reloadClassLoader = new ReloadClassLoader(BASE_PATH);
         Class loadClass = null;
-        try {
-            loadClass = myClassLoader.loadClass(className);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        loadClass = reloadClassLoader.findClass(className);
+        if (loadClass == null) {
+            return;
         }
-
-        BaseManager manager = newInstance(loadClass);
-        LoadInfo loadInfo = new LoadInfo(myClassLoader, lastModified);
-        loadInfo.setManager(manager);
+        Bean manager = newInstance(loadClass);
+        LoadInfo loadInfo = new LoadInfo(reloadClassLoader, lastModified);
+        loadInfo.setBean(manager);
         loadTimeMap.put(className, loadInfo);
     }
 
-    private static BaseManager newInstance(Class loadClass) {
+    private static Bean newInstance(Class loadClass) {
         try {
-            return (BaseManager)loadClass.getConstructor().newInstance(new Object[]{});
+            return (Bean)loadClass.getConstructor().newInstance(new Object[]{});
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

@@ -1,30 +1,30 @@
 package hotreload;
 
+import hotreload.bean.Bean;
+
 /**
  * @Author: wangzilinn@gmail.com
  * @Date: 3/23/2021 10:34 AM
  */
 public class LoadInfo {
-    private MyClassLoader myClassLoader;
-
+    private ReloadClassLoader reloadClassLoader;
     private long loadTime;
-
     /**
      * 要加载的类
      */
-    private BaseManager manager;
+    private Bean bean;
 
-    public LoadInfo(MyClassLoader myClassLoader, long loadTime) {
-        this.myClassLoader = myClassLoader;
+    public LoadInfo(ReloadClassLoader reloadClassLoader, long loadTime) {
+        this.reloadClassLoader = reloadClassLoader;
         this.loadTime = loadTime;
     }
 
-    public MyClassLoader getMyClassLoader() {
-        return myClassLoader;
+    public ReloadClassLoader getMyClassLoader() {
+        return reloadClassLoader;
     }
 
-    public void setMyClassLoader(MyClassLoader myClassLoader) {
-        this.myClassLoader = myClassLoader;
+    public void setMyClassLoader(ReloadClassLoader reloadClassLoader) {
+        this.reloadClassLoader = reloadClassLoader;
     }
 
     public long getLoadTime() {
@@ -35,12 +35,12 @@ public class LoadInfo {
         this.loadTime = loadTime;
     }
 
-    public BaseManager getManager() {
-        return manager;
+    public Bean getBean() {
+        return bean;
     }
 
-    public void setManager(BaseManager manager) {
-        this.manager = manager;
+    public void setBean(Bean bean) {
+        this.bean = bean;
     }
 }
 
